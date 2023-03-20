@@ -5,12 +5,13 @@ const dbConnection = require ("./database.js")
 
 const app = express();
 const port = process.env.PORT || 8000;
+dbConnection();
 
 app.use(bodyParser.urlencoded({
     extended: true
   }));
 
-dbConnection();
+
 
 app.listen(port,()=>{
     console.log(`Server has started on port ${port}`);
