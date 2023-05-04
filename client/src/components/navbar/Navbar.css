@@ -1,0 +1,47 @@
+.navbarContainer {
+  background-color: #212121;
+  width: 100%;
+  display: flex;
+  position: sticky;
+  top: 0;
+  overflow: auto;
+  height: 75px;
+  /* background-color: #69e2ff; */
+}
+
+.navbarLogo {
+  background-color: #212121;
+  color: #ffffff;
+  flex: 1;
+  align-items: center;
+  display: flex;
+}
+
+.menuButton {
+  color: #ffffff;
+  background: none;
+  font-size: 32px;
+  margin-left: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  max-height: 32px;
+}
+
+.logo {
+  background: none;
+  margin-left: 20px;
+  width: 120px;
+}
+
+.navbarButtons {
+  float: right;
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
+  border-radius: 4px;
+  background: none;
+  margin-right: 20px;
+  justify-content: center;
+}
+
