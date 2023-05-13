@@ -2,19 +2,32 @@
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
-import ChessBoard from './components/chessBoard/ChessBoard';
+
+import Board from './components/Board/Board';
+import AppContext from './contexts/Context';
+import { useReducer } from 'react';
+import { reducer } from './reducer/reducer';
+import { initGameState } from './constant';
 
 function App() {
+
+  const [appState, dispatch] = useReducer(reducer, initGameState)
+  const providerState = {
+    appState, dispatch
+  }
+
   return (
-    <div className="App">
-      {/* <BrowserRouter>
+    <AppContext.Provider value={providerState}>
+      <div className="App">
+        {/* <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path='/'/>
         </Routes>
       </BrowserRouter> */}
-      <ChessBoard/>
-    </div>
+        <Board />
+      </div>
+    </AppContext.Provider>
   );
 }
 
