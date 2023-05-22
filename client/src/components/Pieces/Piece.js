@@ -1,26 +1,42 @@
-import React from 'react'
+import arbiter from "../../arbiter/arbiter";
+import { useAppContext } from "../../contexts/Context";
+import { generateCandidates } from "../../reducer/actions/move";
 
-const Piece = ({rank,file,piece}) => {
-  
-  const onDragStart = (event) => {
-    event.dataTransfer.effectAllowed = 'move'
-    event.dataTransfer.setData("text/plain", `${piece},${rank},${file}`);
+const Piece = ({ rank, file, piece }) => {
+  const { appState, dispatch } = useAppContext();
+  const { turn, castleDirection, position: currentPosition } = appState;
+
+  const onDragStart = (e) => {
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", `${piece},${rank},${file}`);
     setTimeout(() => {
-      event.target.style.display = "none";
+      e.target.style.display = "none";
     }, 0);
-    
-  }
-  
-  const onDragEnd = (event) => {event.target.style.display = "block";}
+
+    if (turn === piece[0]) {
+      const candidateMoves = arbiter.getValidMoves({
+        position: currentPosition[currentPosition.length - 1],
+        prevPosition: currentPosition[currentPosition.length - 2],
+        castleDirection: castleDirection[turn],
+        piece,
+        file,
+        rank,
+      });
+      dispatch(generateCandidates({ candidateMoves }));
+    }
+  };
+  const onDragEnd = (e) => {
+    e.target.style.display = "block";
+  };
 
   return (
     <div
       className={`piece ${piece} p-${file}${rank}`}
-      onDragEnd={onDragEnd}
       draggable={true}
       onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
     />
   );
-}
+};
 
-export default Piece
+export default Piece;
